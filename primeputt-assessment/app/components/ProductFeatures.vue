@@ -173,7 +173,9 @@ const stats = [
   padding-bottom: 60px;
 }
 
-/* STATISTICS */
+/* =========================================
+   STATISTICS
+========================================= */
 
 .stats-bar {
   width: 100%;
@@ -233,13 +235,19 @@ const stats = [
   line-height: 1.5;
 }
 
-/* FEATURE ROWS */
+/* =========================================
+   FEATURE ROWS — FULL VIEWPORT HEIGHT
+========================================= */
 
 .feature-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 100%;
-  min-height: 630px;
+
+  /* Each feature fills at least one screen */
+  min-height: 100vh;
+  min-height: 100svh;
+
   background: #050505;
   border: none;
 }
@@ -283,6 +291,7 @@ const stats = [
   font-weight: 800;
   letter-spacing: -2px;
   line-height: 1.08;
+  overflow-wrap: break-word;
 }
 
 .feature-copy p {
@@ -301,12 +310,15 @@ const stats = [
   font-weight: 800;
 }
 
-/* FEATURE MEDIA */
+/* =========================================
+   FEATURE MEDIA — FULL HEIGHT VIDEO
+========================================= */
 
 .feature-media {
   position: relative;
   min-width: 0;
-  min-height: 630px;
+  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   background: #050505;
   border-radius: 18px;
@@ -346,7 +358,9 @@ const stats = [
   display: none !important;
 }
 
-/* ALTERNATING FEATURE LAYOUT */
+/* =========================================
+   ALTERNATING FEATURE LAYOUT
+========================================= */
 
 .feature-reverse .feature-copy {
   grid-column: 2;
@@ -358,7 +372,9 @@ const stats = [
   grid-row: 1;
 }
 
-/* TESTIMONIAL QUOTES */
+/* =========================================
+   TESTIMONIAL QUOTES
+========================================= */
 
 .feature-quote {
   display: flex;
@@ -404,7 +420,9 @@ const stats = [
   letter-spacing: 1px;
 }
 
-/* TABLETS */
+/* =========================================
+   TABLETS
+========================================= */
 
 @media (max-width: 1000px) {
   .stats-container {
@@ -416,7 +434,8 @@ const stats = [
   }
 
   .feature-row {
-    min-height: 500px;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .feature-copy {
@@ -424,7 +443,8 @@ const stats = [
   }
 
   .feature-media {
-    min-height: 500px;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .feature-copy h2 {
@@ -432,7 +452,9 @@ const stats = [
   }
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 700px) {
   .features-section {
@@ -476,6 +498,8 @@ const stats = [
     font-size: 11px;
   }
 
+  /* STACK FEATURES VERTICALLY */
+
   .feature-row {
     display: flex;
     flex-direction: column;
@@ -508,7 +532,7 @@ const stats = [
     font-size: 14px;
   }
 
-  /* Rounded videos with 15px side spacing */
+  /* MOBILE VIDEO */
 
   .feature-media {
     order: 2;
@@ -525,6 +549,8 @@ const stats = [
     grid-row: auto;
   }
 
+  /* TESTIMONIALS */
+
   .feature-quote {
     min-height: 220px;
     padding: 55px 20px;
@@ -540,7 +566,9 @@ const stats = [
   }
 }
 
-/* SMALL MOBILE */
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
 @media (max-width: 360px) {
   .stat-item {
@@ -561,6 +589,17 @@ const stats = [
 
   .feature-copy h2 {
     font-size: 29px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-media video {
+    /* Video behavior can also be controlled in Vue
+       if reduced-motion playback is required. */
   }
 }
 </style>

@@ -521,13 +521,16 @@ function formatDate(date: string) {
 </template>
 
 <style scoped>
-/* SECTION */
+/* =========================================
+   CUSTOMER REVIEWS SECTION
+========================================= */
 
 .customer-section {
   width: 100%;
-  padding: 80px 24px 110px;
+  padding: 0 24px 110px;
   background: #050505;
   color: #fff;
+  border-top: 1px solid #242424;
 }
 
 .customer-container {
@@ -536,39 +539,45 @@ function formatDate(date: string) {
   margin: 0 auto;
 }
 
-/* PRODUCT CTA */
+/* =========================================
+   PRODUCT CTA
+========================================= */
 
 .product-cta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   align-items: center;
-  gap: 60px;
-  padding-bottom: 100px;
+  column-gap: 65px;
+  min-height: 570px;
+  padding: 0 0 75px;
 }
 
 .product-cta h2 {
   margin: 0;
-  font-size: clamp(75px, 8vw, 125px);
+  font-size: clamp(75px, 7.8vw, 125px);
   font-weight: 900;
-  letter-spacing: -7px;
-  line-height: 0.85;
+  letter-spacing: -6px;
+  line-height: 1;
 }
 
 .cta-details {
   width: 100%;
-  max-width: 450px;
+  max-width: 490px;
+  margin-top: 15px;
 }
 
 .cta-price {
-  font-size: clamp(30px, 3vw, 40px);
+  font-size: clamp(35px, 3.3vw, 44px);
   font-weight: 800;
   letter-spacing: -1.5px;
+  line-height: 1.1;
 }
 
 .cta-product {
-  margin: 4px 0 15px;
+  margin: 6px 0 18px;
   color: #aaa;
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .cta-button {
@@ -577,16 +586,17 @@ function formatDate(date: string) {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  max-width: 320px;
-  min-height: 52px;
+  max-width: 300px;
+  min-height: 61px;
+  padding: 12px 20px;
   border: none;
   border-radius: 3px;
   background: #ffc568;
   color: #050505;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -595,27 +605,48 @@ function formatDate(date: string) {
   background: #ffd48b;
 }
 
+.cta-button:focus-visible,
+.outline-action:focus-visible,
+.rating-bar-row:focus-visible {
+  outline: 2px solid #ffc568;
+  outline-offset: 4px;
+}
+
 .cta-guarantee {
-  max-width: 440px;
-  margin-top: 14px;
+  max-width: 490px;
+  margin: 15px 0 0;
   color: #aaa;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
-/* RATINGS SUMMARY */
+/* =========================================
+   RATINGS SUMMARY
+========================================= */
 
 .ratings-summary {
   display: grid;
-  grid-template-columns: 190px 235px;
+  grid-template-columns: 205px 280px minmax(0, 280px);
   align-items: start;
-  gap: 22px;
-  margin-bottom: 18px;
+  column-gap: 22px;
+  width: 100%;
+  min-height: 125px;
+  margin: 0 0 15px;
 }
 
-.rating-overview,
-.rating-bars {
-  min-height: 100px;
+/* Placeholder for unavailable review gallery */
+
+.ratings-summary::after {
+  content: "";
+  display: block;
+  min-height: 115px;
+  border-left: 1px solid #333;
+}
+
+.rating-overview {
+  min-width: 0;
+  min-height: 115px;
+  padding-right: 20px;
   border-right: 1px solid #333;
 }
 
@@ -623,61 +654,77 @@ function formatDate(date: string) {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 32px;
+  white-space: nowrap;
+  font-size: 37px;
+  font-weight: 400;
+  line-height: 1.1;
 }
 
 .stars {
   color: #ffc568;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
 .rating-score .stars {
-  font-size: 21px;
+  font-size: 23px;
+  letter-spacing: -1px;
 }
 
 .rating-overview p {
-  margin: 4px 0 0;
-  font-size: 12px;
+  margin: 9px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .rating-bars {
-  padding-right: 15px;
-  border-right: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3px;
+  min-width: 0;
+  min-height: 115px;
+  padding-right: 0;
 }
 
 .rating-bar-row {
   display: grid;
-  grid-template-columns: 65px minmax(0, 1fr) 35px;
+  grid-template-columns: 82px minmax(0, 1fr) 32px;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   width: 100%;
-  padding: 2px 0;
+  min-height: 19px;
+  padding: 0;
   border: none;
   background: transparent;
   color: #fff;
+  text-align: left;
   cursor: pointer;
 }
 
 .rating-bar-row.selected {
   outline: 1px solid #ffc568;
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .rating-stars {
   color: #ffc568;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: -1px;
+  line-height: 1;
   white-space: nowrap;
 }
 
 .empty-stars {
-  color: #666;
+  color: #777;
 }
 
 .bar-track {
-  height: 11px;
-  background: #1c1c1c;
+  display: block;
+  width: 100%;
+  height: 13px;
+  overflow: hidden;
+  background: #202020;
 }
 
 .bar-fill {
@@ -688,44 +735,66 @@ function formatDate(date: string) {
 
 .rating-count {
   color: #aaa;
-  font-size: 10px;
+  font-size: 11px;
+  text-align: right;
+  white-space: nowrap;
 }
 
-/* RECOMMENDATION */
+/* =========================================
+   RECOMMENDATION
+========================================= */
 
 .recommendation {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
-  font-size: 12px;
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .recommendation strong {
-  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 27px;
+  padding: 3px 6px;
   background: #263b30;
-  font-size: 13px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
 }
 
-/* REVIEW ACTIONS */
+/* =========================================
+   REVIEW ACTION BUTTONS
+========================================= */
 
 .review-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin: 0 0 30px;
+  align-items: center;
+  gap: 14px;
+  margin: -4px 0 22px;
 }
 
 .outline-action {
-  min-height: 34px;
-  padding: 0 16px;
-  border: 1px solid #555;
-  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 37px;
+  padding: 0 18px;
+  border: 1px solid #666;
+  border-radius: 2px;
   background: transparent;
   color: #fff;
   font-family: inherit;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
+  white-space: nowrap;
   cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .outline-action:hover {
@@ -733,25 +802,29 @@ function formatDate(date: string) {
   color: #ffc568;
 }
 
-/* REVIEW TABS */
+/* =========================================
+   REVIEW TABS
+========================================= */
 
 .review-tabs {
   display: flex;
-  gap: 24px;
-  border-bottom: 1px solid #fff;
+  align-items: flex-end;
+  gap: 20px;
+  border-bottom: 1px solid #383838;
 }
 
 .review-tabs button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0 8px 12px;
+  min-height: 43px;
+  padding: 0 8px 10px;
   border: none;
   border-bottom: 2px solid transparent;
   background: transparent;
   color: #ccc;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -761,25 +834,28 @@ function formatDate(date: string) {
 }
 
 .review-tabs button span {
-  padding: 2px 5px;
-  border-radius: 3px;
+  padding: 3px 6px;
+  border-radius: 2px;
   background: #242424;
+  color: #fff;
   font-size: 12px;
 }
 
-/* REVIEW TOOLBAR */
+/* =========================================
+   FILTER TOOLBAR
+========================================= */
 
 .review-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  min-height: 80px;
-  border-bottom: 1px solid #555;
+  min-height: 85px;
+  border-bottom: 1px solid #444;
 }
 
 .filter-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -790,25 +866,28 @@ function formatDate(date: string) {
   border-radius: 3px;
   background: transparent;
   color: #ffc568;
+  font-family: inherit;
   cursor: pointer;
 }
 
 .review-toolbar select {
-  min-height: 35px;
+  min-height: 37px;
   padding: 0 12px;
   border: 1px solid #ccc;
   border-radius: 3px;
   background: #fff;
   color: #111;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
 }
 
-/* CUSTOMER REVIEWS */
+/* =========================================
+   CUSTOMER REVIEW LIST
+========================================= */
 
 .customer-review {
-  padding: 24px 0 30px;
-  border-bottom: 1px solid #242424;
+  padding: 30px 0 35px;
+  border-bottom: 1px solid #292929;
 }
 
 .review-top,
@@ -829,17 +908,22 @@ function formatDate(date: string) {
   justify-content: space-between;
 }
 
+.review-top {
+  gap: 16px;
+}
+
 .review-person {
-  gap: 10px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
   flex-shrink: 0;
+  width: 43px;
+  height: 43px;
   border-radius: 50%;
   background: #20392f;
   color: #fff;
@@ -853,20 +937,20 @@ function formatDate(date: string) {
 }
 
 .review-person strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .review-person small,
 .review-top time,
 .reply-heading time,
 .question-heading time {
-  color: #777;
-  font-size: 11px;
+  color: #999;
+  font-size: 12px;
 }
 
 .recommended {
-  margin-top: 18px;
-  font-size: 12px;
+  margin-top: 20px;
+  font-size: 13px;
 }
 
 .recommended span {
@@ -875,50 +959,53 @@ function formatDate(date: string) {
 
 .review-title {
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 17px;
-  font-size: 13px;
+  gap: 12px;
+  margin-top: 19px;
+  font-size: 15px;
 }
 
 .review-title .stars {
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .review-body {
-  margin: 10px 0 18px;
-  font-size: 13px;
-  line-height: 1.6;
+  max-width: 900px;
+  margin: 12px 0 20px;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .review-handicap {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin: 20px 0;
-  font-size: 12px;
+  gap: 6px;
+  margin: 22px 0;
+  font-size: 13px;
 }
 
 .review-product-name {
-  margin: 22px 0;
-  font-size: 12px;
+  margin: 24px 0;
+  color: #ccc;
+  font-size: 13px;
 }
 
 .review-footer {
-  gap: 12px;
-  margin-top: 24px;
+  gap: 15px;
+  margin-top: 25px;
   color: #aaa;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .helpful {
-  gap: 9px;
+  gap: 10px;
 }
 
 .helpful button {
   border: none;
   background: transparent;
   color: #aaa;
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -926,39 +1013,48 @@ function formatDate(date: string) {
   color: #ffc568;
 }
 
-/* MERCHANT REPLY */
+/* =========================================
+   MERCHANT REPLY
+========================================= */
 
 .merchant-reply {
-  margin: 20px 0 0 28px;
-  padding: 8px 0 8px 16px;
+  margin: 22px 0 0 28px;
+  padding: 10px 0 10px 18px;
   border-left: 4px solid #fff;
+}
+
+.reply-heading {
+  gap: 15px;
 }
 
 .reply-heading strong,
 .merchant-reply > strong {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .merchant-reply p {
-  margin: 8px 0 0;
-  font-size: 12px;
-  line-height: 1.6;
+  margin: 10px 0 0;
+  color: #ddd;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
-/* PAGINATION */
+/* =========================================
+   PAGINATION
+========================================= */
 
 .review-pagination {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 35px;
+  gap: 5px;
+  margin-top: 40px;
 }
 
 .review-pagination button {
-  min-width: 34px;
-  min-height: 34px;
-  padding: 0 8px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 9px;
   border: 1px solid #ffc568;
   background: transparent;
   color: #ffc568;
@@ -978,124 +1074,379 @@ function formatDate(date: string) {
   cursor: not-allowed;
 }
 
-/* QUESTIONS */
+/* =========================================
+   QUESTIONS
+========================================= */
 
 .question-item {
-  padding: 28px 0;
+  padding: 30px 0;
   border-bottom: 1px solid #292929;
 }
 
+.question-heading {
+  gap: 15px;
+}
+
 .question-heading strong {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .question-item h3 {
-  margin: 20px 0;
-  font-size: 17px;
+  margin: 22px 0;
+  font-size: 19px;
 }
 
 .empty-reviews {
-  padding: 35px 0;
+  padding: 40px 0;
   color: #aaa;
+  font-size: 14px;
 }
 
-/* TABLET */
+/* =========================================
+   DESKTOP — MATCH ORIGINAL PRIMEPUTT
+========================================= */
 
-@media (max-width: 1000px) {
+@media (min-width: 1001px) {
+  .customer-section {
+    padding: 35px 24px 110px;
+  }
+
+  .customer-container {
+    max-width: 1100px;
+  }
+
   .product-cta {
-    gap: 35px;
+    grid-template-columns: 440px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 55px;
+    min-height: 0;
+    padding-bottom: 95px;
+  }
+
+  /* Prevent text overlap */
+
+  .product-cta h2 {
+    font-size: clamp(100px, 7.8vw, 132px);
+    font-weight: 900;
+    letter-spacing: -7px;
+    line-height: 1;
+  }
+
+  /* Position price/cart alongside heading */
+
+  .cta-details {
+    width: 100%;
+    max-width: 520px;
+    margin-top: 0;
+    padding-top: 225px;
+  }
+
+  .cta-price {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+  }
+
+  .cta-product {
+    margin: 5px 0 18px;
+    font-size: 13px;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 300px;
+    min-height: 60px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+
+  .cta-guarantee {
+    max-width: 520px;
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* RATINGS */
+
+  .ratings-summary {
+    grid-template-columns: 200px 255px minmax(0, 280px);
+    gap: 20px;
+    margin-bottom: 18px;
+  }
+
+  .rating-overview,
+  .rating-bars {
+    min-height: 114px;
+  }
+
+  .rating-overview {
+    border-right: 1px solid #333;
+  }
+
+  .rating-score {
+    gap: 10px;
+    font-size: 36px;
+  }
+
+  .rating-score .stars {
+    font-size: 23px;
+  }
+
+  .rating-overview p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .rating-bars {
+    padding-right: 18px;
+  }
+
+  .rating-bar-row {
+    grid-template-columns: 70px minmax(0, 1fr) 35px;
+    gap: 7px;
+    padding: 3px 0;
+  }
+
+  .rating-stars {
+    font-size: 14px;
+  }
+
+  .bar-track {
+    height: 13px;
+  }
+
+  .rating-count {
+    font-size: 11px;
+  }
+
+  /* RECOMMENDATION */
+
+  .recommendation {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .recommendation strong {
+    padding: 5px 6px;
+    font-size: 14px;
+  }
+
+  /* ACTION BUTTONS */
+
+  .review-actions {
+    gap: 14px;
+    margin-top: -5px;
+    margin-bottom: 30px;
+  }
+
+  .outline-action {
+    min-height: 38px;
+    padding: 0 18px;
+    font-size: 12px;
+  }
+
+  .review-tabs button {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .customer-section {
+    padding: 0 24px 95px;
+  }
+
+  .product-cta {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 40px;
+    min-height: 510px;
+    padding-bottom: 65px;
   }
 
   .product-cta h2 {
-    font-size: clamp(65px, 9vw, 100px);
+    font-size: clamp(65px, 9vw, 105px);
+    letter-spacing: -5px;
+    line-height: 1;
+  }
+
+  .cta-details {
+    margin-top: 0;
   }
 
   .ratings-summary {
-    grid-template-columns: 180px 220px;
-    gap: 15px;
+    grid-template-columns: 190px minmax(0, 260px) minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .rating-score {
+    font-size: 33px;
+  }
+
+  .rating-score .stars {
+    font-size: 20px;
+  }
+
+  .rating-bar-row {
+    grid-template-columns: 72px minmax(0, 1fr) 30px;
+    gap: 5px;
+  }
+
+  .rating-stars {
+    font-size: 13px;
   }
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 700px) {
   .customer-section {
-    padding: 65px 15px 80px;
+    padding: 0 18px 80px;
   }
 
   .product-cta {
     grid-template-columns: 1fr;
     gap: 35px;
-    padding-bottom: 65px;
+    min-height: 0;
+    padding: 65px 0 75px;
   }
 
   .product-cta h2 {
-    font-size: clamp(65px, 16vw, 95px);
+    font-size: clamp(70px, 16vw, 105px);
     letter-spacing: -5px;
+    line-height: 1;
   }
 
   .cta-details {
     max-width: 100%;
+    margin-top: 0;
+  }
+
+  .cta-price {
+    font-size: 37px;
+  }
+
+  .cta-product {
+    font-size: 13px;
   }
 
   .cta-button {
     max-width: 100%;
+    min-height: 55px;
+    font-size: 13px;
+  }
+
+  .cta-guarantee {
+    max-width: 100%;
+    font-size: 12px;
   }
 
   .ratings-summary {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 15px;
+    min-height: 0;
+    margin-bottom: 20px;
+  }
+
+  .ratings-summary::after {
+    display: none;
   }
 
   .rating-overview {
-    min-width: 0;
-    min-height: 100px;
-  }
-
-  .rating-bars {
-    min-width: 0;
-    min-height: 100px;
-    padding-right: 0;
-    border-right: none;
+    min-height: 110px;
+    padding-right: 12px;
   }
 
   .rating-score {
     flex-wrap: wrap;
-    font-size: 27px;
+    gap: 5px;
+    font-size: 30px;
   }
 
   .rating-score .stars {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .rating-overview p {
+    font-size: 12px;
+  }
+
+  .rating-bars {
+    min-height: 110px;
   }
 
   .rating-bar-row {
-    grid-template-columns: 52px minmax(0, 1fr) 26px;
-    gap: 3px;
+    grid-template-columns: 58px minmax(0, 1fr) 27px;
+    gap: 4px;
+    min-height: 19px;
   }
 
   .rating-stars {
     font-size: 11px;
   }
 
+  .bar-track {
+    height: 11px;
+  }
+
+  .rating-count {
+    font-size: 10px;
+  }
+
   .recommendation {
-    flex-wrap: wrap;
-    margin-top: 12px;
+    margin-top: 10px;
+    font-size: 12px;
   }
 
   .review-actions {
     justify-content: flex-start;
-    margin-top: 30px;
     flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0 25px;
   }
 
   .outline-action {
-    flex: 1;
-    min-width: 130px;
-    padding: 0 8px;
+    flex: 1 1 140px;
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .review-tabs {
+    gap: 15px;
+  }
+
+  .review-tabs button {
+    font-size: 13px;
   }
 
   .review-toolbar {
+    gap: 12px;
     min-height: 75px;
+  }
+
+  .filter-label {
+    font-size: 12px;
+  }
+
+  .review-toolbar select {
+    max-width: 155px;
+    font-size: 12px;
+  }
+
+  .customer-review {
+    padding: 25px 0 30px;
+  }
+
+  .review-body {
+    font-size: 14px;
   }
 
   .review-footer {
@@ -1105,37 +1456,80 @@ function formatDate(date: string) {
 
   .merchant-reply {
     margin-left: 12px;
+    padding-left: 14px;
+  }
+
+  .merchant-reply p {
+    font-size: 13px;
   }
 }
 
-/* SMALL MOBILE */
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
-@media (max-width: 360px) {
+@media (max-width: 380px) {
   .customer-section {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .product-cta h2 {
-    font-size: 62px;
+    font-size: clamp(58px, 16vw, 70px);
+    letter-spacing: -4px;
+    line-height: 1;
   }
 
   .ratings-summary {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .rating-overview,
-  .rating-bars {
+  .rating-overview {
+    min-height: 0;
+    padding-right: 0;
+    padding-bottom: 15px;
     border-right: none;
+    border-bottom: 1px solid #333;
+  }
+
+  .rating-score {
+    flex-wrap: nowrap;
+  }
+
+  .rating-bars {
+    max-width: 300px;
     min-height: 0;
   }
 
+  .rating-bar-row {
+    grid-template-columns: 70px minmax(0, 1fr) 30px;
+  }
+
+  .rating-stars {
+    font-size: 13px;
+  }
+
   .review-toolbar {
-    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 0;
   }
 
   .review-toolbar select {
-    max-width: 140px;
+    max-width: 100%;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-button,
+  .outline-action {
+    transition: none;
   }
 }
 </style>
