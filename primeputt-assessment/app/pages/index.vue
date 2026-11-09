@@ -189,6 +189,15 @@ onUnmounted(() => {
     <ProductFeatures />
     <!-- PRODUCT SIZE COMPARISON -->
     <ProductSizeSection />
+    <!-- PRODUCT REVIEWS -->
+    <ProductReviews />
+    <!--ProductHelp-->
+    <ProductHelp />
+    <!-- PRODUCT RECOMMENDATIONS -->
+    <ProductPricingComparison />
+    <!-- PRODUCT GUARANTEE -->
+    <ProductGuarantee @open-guarantee="guaranteeOpen = true" />
+
     <!-- FOOTER -->
     <footer class="assessment-note">
       Unofficial frontend assessment replica. Not affiliated with PrimePutt.
