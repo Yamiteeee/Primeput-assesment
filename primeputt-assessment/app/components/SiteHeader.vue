@@ -102,6 +102,7 @@ onUnmounted(() => {
     }"
   >
     <div class="header-inner">
+      <!-- MOBILE MENU -->
       <button
         class="icon-button menu-button"
         type="button"
@@ -116,16 +117,25 @@ onUnmounted(() => {
         </svg>
       </button>
 
+      <!-- PRIMEPUTT LOGO -->
       <a
         href="#product"
         class="logo"
         aria-label="PrimePutt home"
         @click="closeMenu"
       >
-        <span class="logo-mark">P</span>
+        <img
+          src="/images/primeputt-p-logo.svg"
+          alt=""
+          class="logo-mark"
+          width="36"
+          height="41"
+        />
+
         <span class="logo-name">PrimePutt</span>
       </a>
 
+      <!-- DESKTOP NAVIGATION -->
       <nav class="desktop-nav" aria-label="Main navigation">
         <a href="#product" class="nav-shop">
           Shop
@@ -133,10 +143,12 @@ onUnmounted(() => {
             <path d="m6 9 6 6 6-6" />
           </svg>
         </a>
+
         <a href="#product">Blog</a>
         <a href="#recommendations">Contact</a>
       </nav>
 
+      <!-- HEADER ACTIONS -->
       <div class="header-actions">
         <button
           class="icon-button"
@@ -168,6 +180,7 @@ onUnmounted(() => {
       </div>
     </div>
 
+    <!-- MOBILE NAVIGATION -->
     <nav
       v-if="menuOpen"
       id="mobile-navigation"
@@ -182,6 +195,8 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* HEADER */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -215,6 +230,8 @@ onUnmounted(() => {
   margin: 0 auto;
 }
 
+/* LOGO */
+
 .logo {
   display: inline-flex;
   align-items: center;
@@ -227,17 +244,38 @@ onUnmounted(() => {
 }
 
 .logo-mark {
-  font-family: Georgia, serif;
-  font-size: 37px;
-  font-weight: 700;
-  line-height: 1;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 42px;
+  flex-shrink: 0;
 }
 
-.logo-name {
-  font-family: Georgia, serif;
-  font-size: 18px;
-  font-weight: 700;
+.logo-mark {
+  display: block;
+  width: 36px;
+  height: 41px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
+
+@media (max-width: 700px) {
+  .logo-mark {
+    width: 28px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo-mark {
+    width: 25px;
+    height: 29px;
+  }
+}
+
+/* DESKTOP NAVIGATION */
 
 .desktop-nav {
   display: flex;
@@ -274,6 +312,8 @@ onUnmounted(() => {
   stroke-linejoin: round;
 }
 
+/* HEADER ACTIONS */
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -306,6 +346,8 @@ onUnmounted(() => {
   color: #ffc568;
 }
 
+/* CART */
+
 .cart-trigger {
   position: relative;
 }
@@ -327,10 +369,14 @@ onUnmounted(() => {
   font-weight: 800;
 }
 
+/* MOBILE MENU */
+
 .menu-button,
 .mobile-nav {
   display: none;
 }
+
+/* TABLET */
 
 @media (max-width: 900px) {
   .header-inner {
@@ -351,6 +397,8 @@ onUnmounted(() => {
   }
 }
 
+/* MOBILE */
+
 @media (max-width: 700px) {
   .header-inner {
     grid-template-columns: 1fr auto 1fr;
@@ -366,7 +414,19 @@ onUnmounted(() => {
   }
 
   .logo-mark {
-    font-size: 29px;
+    width: 28px;
+    height: 34px;
+  }
+
+  .logo-letter {
+    font-size: 35px;
+  }
+
+  .logo-flag {
+    top: 5px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
   }
 
   .logo-name {
@@ -412,19 +472,34 @@ onUnmounted(() => {
   }
 }
 
+/* SMALL PHONES */
+
 @media (max-width: 360px) {
   .header-actions {
     gap: 7px;
   }
 
   .logo-mark {
-    font-size: 25px;
+    width: 25px;
+    height: 30px;
+  }
+
+  .logo-letter {
+    font-size: 31px;
+  }
+
+  .logo-flag {
+    top: 4px;
+    width: 14px;
+    height: 14px;
   }
 
   .logo-name {
     font-size: 13px;
   }
 }
+
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   .site-header {

@@ -596,13 +596,6 @@ const stats = [
    REDUCED MOTION
 ========================================= */
 
-@media (prefers-reduced-motion: reduce) {
-  .feature-media video {
-    /* Video behavior can also be controlled in Vue
-       if reduced-motion playback is required. */
-  }
-}
-
 /* =========================================
    TABLET FIX — 701px TO 1024px
 ========================================= */

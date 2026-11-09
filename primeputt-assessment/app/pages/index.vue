@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 
-/* PRODUCT COMPOSABLE */
-
-const { sizes, selectedSize, selectedProduct, selectSize, formatPrice } =
-  useProduct();
-
-/* CART COMPOSABLE */
-
-const { addToCart: addProductToCart } = useCart();
-
 /* OVERLAY STATE */
 
 const cartOpen = ref(false);
@@ -20,12 +11,7 @@ const anyOverlayOpen = computed(
   () => cartOpen.value || guaranteeOpen.value || sizeGuideOpen.value,
 );
 
-/* CART ACTIONS */
-
-function addToCart() {
-  addProductToCart(selectedProduct.value);
-  openCart();
-}
+/* OVERLAY ACTIONS */
 
 function closeOverlays() {
   cartOpen.value = false;
@@ -47,6 +33,10 @@ function openSizeGuide() {
   closeOverlays();
   sizeGuideOpen.value = true;
 }
+
+/* SIZE GUIDE DATA */
+
+const { sizes } = useProduct();
 
 /* KEYBOARD CONTROLS */
 
@@ -78,136 +68,47 @@ onUnmounted(() => {
 
 <template>
   <div class="page">
-    <!-- HEADER COMPONENT -->
+    <!-- HEADER -->
     <SiteHeader :overlay-open="anyOverlayOpen" @open-cart="openCart" />
 
-    <!-- MAIN PRODUCT -->
-    <main id="product" class="product-layout">
-      <!-- GALLERY COMPONENT -->
-      <ProductGallery />
+    <!-- PRODUCT HERO -->
+    <ProductHero
+      @open-cart="openCart"
+      @open-guarantee="openGuarantee"
+      @open-size-guide="openSizeGuide"
+    />
 
-      <!-- PRODUCT INFORMATION -->
-      <section class="product-info">
-        <h1>
-          Bring the<br class="desktop-break" />
-          green home.
-        </h1>
-
-        <p class="description">
-          USA-made TrueGreen™ nylon turf rolls like your course. Three
-          regulation-width cups perform like a full-depth hole. A solid walnut
-          backstop.
-        </p>
-
-        <div class="rating">
-          <span class="stars" aria-label="Five stars"> ★★★★★ </span>
-
-          <span> <strong>4.9</strong> · 16,000+ golfers </span>
-        </div>
-
-        <!-- SIZE SELECTION -->
-        <div class="size-options">
-          <button
-            v-for="size in sizes"
-            :key="size.name"
-            type="button"
-            class="size-option"
-            :class="{ active: selectedSize === size.name }"
-            :aria-pressed="selectedSize === size.name"
-            @click="selectSize(size.name)"
-          >
-            <span v-if="size.popular" class="popular-badge">
-              MOST POPULAR
-            </span>
-
-            <span class="size-name">
-              {{ size.name }}
-            </span>
-
-            <span class="size-dimensions">
-              {{ size.dimensions }}
-            </span>
-
-            <strong class="size-price">
-              {{ formatPrice(size.price) }}
-            </strong>
-          </button>
-        </div>
-
-        <button class="size-guide" type="button" @click="openSizeGuide">
-          Which size fits my room? →
-        </button>
-
-        <!-- PURCHASE -->
-        <div class="purchase">
-          <button class="cart-button" type="button" @click="addToCart">
-            <span>ADD TO CART</span>
-
-            <span class="cart-divider">·</span>
-
-            <strong>
-              {{ formatPrice(selectedProduct.price) }}
-            </strong>
-          </button>
-        </div>
-
-        <!-- GUARANTEE -->
-        <div class="guarantee-row">
-          <strong> 60-DAY MONEY-BACK GUARANTEE </strong>
-
-          <button class="details-trigger" type="button" @click="openGuarantee">
-            Details
-          </button>
-        </div>
-
-        <!-- TESTIMONIAL -->
-        <div id="recommendations" class="testimonial">
-          <div class="testimonial-avatar">
-            <span>TM</span>
-          </div>
-
-          <div class="testimonial-content">
-            <p>
-              “PrimePutt is the perfect putting mat to help you dial in your
-              putting at home and helps prepare me for the greens I see weekly
-              on the PGA Tour.”
-            </p>
-
-            <div class="testimonial-author">
-              <strong>Taylor Montgomery</strong>
-
-              <span>
-                · The PGA Tour's #1 putter in 2024 · Verified customer
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- PRODUCT FEATURES SECTION -->
+    <!-- PRODUCT FEATURES -->
     <ProductFeatures />
+
     <!-- PRODUCT SIZE COMPARISON -->
     <ProductSizeSection />
+
     <!-- PRODUCT REVIEWS -->
     <ProductReviews />
-    <!--ProductHelp-->
+
+    <!-- PRODUCT HELP -->
     <ProductHelp />
+
     <!-- PRODUCT RECOMMENDATIONS -->
     <ProductPricingComparison />
+
     <!-- PRODUCT GUARANTEE -->
-    <ProductGuarantee @open-guarantee="guaranteeOpen = true" />
+    <ProductGuarantee @open-guarantee="openGuarantee" />
+
     <!-- PRODUCT PRESS REVIEWS -->
     <ProductPressReviews />
 
     <!-- PRODUCT FAQ -->
     <ProductFAQ />
+
     <!-- PRODUCT CUSTOMER REVIEWS -->
     <ProductCustomerReviews />
-    <!-- PRODUCT FOOTER -->
+
+    <!-- SITE FOOTER -->
     <SiteFooter />
 
-    <!-- FOOTER -->
+    <!-- ASSESSMENT DISCLAIMER -->
     <footer class="assessment-note">
       Unofficial frontend assessment replica. Not affiliated with PrimePutt.
     </footer>
@@ -293,13 +194,8 @@ onUnmounted(() => {
 
           <div class="pp-size-guide-list">
             <div v-for="size in sizes" :key="size.name">
-              <strong>
-                {{ size.name }}
-              </strong>
-
-              <span>
-                {{ size.dimensions }}
-              </span>
+              <strong>{{ size.name }}</strong>
+              <span>{{ size.dimensions }}</span>
             </div>
           </div>
 
@@ -311,7 +207,7 @@ onUnmounted(() => {
       </div>
     </Teleport>
 
-    <!-- CART DRAWER COMPONENT -->
+    <!-- CART DRAWER -->
     <CartDrawer :open="cartOpen" @close="closeOverlays" />
   </div>
 </template>
@@ -324,442 +220,12 @@ onUnmounted(() => {
   overflow-x: clip;
 }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* MAIN LAYOUT */
-
-.product-layout {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1.08fr)
-    minmax(0, 0.98fr);
-  align-items: start;
-  gap: clamp(35px, 4vw, 65px);
-  width: min(100% - 48px, 1250px);
-  margin: 0 auto;
-  padding: 24px 0 100px;
-}
-
-/* PRODUCT INFORMATION */
-
-.product-info {
-  position: sticky;
-  top: 100px;
-  align-self: start;
-  min-width: 0;
-}
-
-.product-info h1 {
-  max-width: 560px;
-  margin: 0 0 15px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(43px, 4vw, 61px);
-  font-weight: 800;
-  letter-spacing: -2.8px;
-  line-height: 0.98;
-}
-
-.description {
-  max-width: 540px;
-  margin: 0 0 15px;
-  color: #c8c8c8;
-  font-size: 16px;
-  line-height: 1.52;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 11px;
-  margin-bottom: 26px;
-  color: #d0d0d0;
-  font-size: 13px;
-}
-
-.stars {
-  color: #ffc568;
-  font-size: 15px;
-  letter-spacing: 1px;
-}
-
-.rating strong {
-  color: #fff;
-}
-
-/* SIZE OPTIONS */
-
-.size-options {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.size-option {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-width: 0;
-  min-height: 112px;
-  padding: 14px 8px;
-  border: 1px solid #292929;
-  border-radius: 5px;
-  background: transparent;
-  color: #fff;
-  text-align: center;
-  transition:
-    border-color 0.2s,
-    background 0.2s;
-  cursor: pointer;
-}
-
-.size-option:hover {
-  border-color: #ffc568;
-}
-
-.size-option.active {
-  border-color: #ffc568;
-  background: rgba(255, 197, 104, 0.1);
-}
-
-.popular-badge {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  padding: 4px 8px;
-  border-radius: 2px;
-  background: #ffc568;
-  color: #000;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  white-space: nowrap;
-  transform: translateX(-50%);
-}
-
-.size-name {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.size-dimensions {
-  color: #929292;
-  font-size: 12px;
-}
-
-.size-price {
-  margin-top: 5px;
-  font-size: clamp(16px, 1.6vw, 21px);
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.size-option.active .size-price {
-  color: #ffc568;
-}
-
-.size-guide {
-  display: inline-block;
-  margin-top: 13px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #aaa;
-  font-size: 12px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-/* PURCHASE */
-
-.purchase {
-  margin-top: 18px;
-}
-
-.cart-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  width: 100%;
-  min-height: 65px;
-  padding: 16px;
-  border: 0;
-  border-radius: 4px;
-  background: #ffc568;
-  color: #080808;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  cursor: pointer;
-}
-
-.cart-button strong {
-  font-size: 16px;
-  letter-spacing: 0;
-}
-
-.cart-divider {
-  font-size: 19px;
-}
-
-/* GUARANTEE */
-
-.guarantee-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin: 27px 0 38px;
-  padding: 0 18px;
-}
-
-.guarantee-row strong {
-  color: #ffc568;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.7px;
-}
-
-.details-trigger {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #aaa;
-  font-size: 12px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-.details-trigger:hover {
-  color: #fff;
-}
-
-/* TESTIMONIAL */
-
-.testimonial {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 22px 0;
-  border-top: 1px solid #292929;
-}
-
-.testimonial-avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #303c32;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.testimonial-content {
-  min-width: 0;
-}
-
-.testimonial-content p {
-  margin: 0 0 8px;
-  color: #eee;
-  font-size: 13px;
-  line-height: 1.55;
-}
-
-.testimonial-author {
-  color: #858585;
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.testimonial-author strong {
-  color: #fff;
-}
-
-/* FOOTER */
-
 .assessment-note {
   padding: 25px;
   border-top: 1px solid #1d1d1d;
   color: #666;
   font-size: 11px;
   text-align: center;
-}
-
-/* TABLETS */
-
-@media (max-width: 1000px) {
-  .product-layout {
-    gap: 25px;
-    width: min(100% - 32px, 1250px);
-  }
-
-  .product-info h1 {
-    font-size: clamp(35px, 4.7vw, 49px);
-  }
-
-  .description {
-    font-size: 14px;
-  }
-
-  .size-options {
-    gap: 7px;
-  }
-
-  .size-option {
-    padding: 12px 5px;
-  }
-
-  .size-price {
-    font-size: 15px;
-  }
-}
-
-/* MOBILE */
-
-@media (max-width: 700px) {
-  .product-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    width: 100%;
-    padding: 0 0 60px;
-  }
-
-  .product-info {
-    position: static;
-    width: 100%;
-    padding: 13px 15px 0;
-  }
-
-  .product-info h1 {
-    margin-bottom: 12px;
-    font-size: clamp(30px, 7.6vw, 42px);
-    letter-spacing: -1.4px;
-    line-height: 1.05;
-  }
-
-  .desktop-break {
-    display: none;
-  }
-
-  .description {
-    margin-bottom: 13px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .rating {
-    gap: 9px;
-    margin-bottom: 21px;
-    font-size: 12px;
-  }
-
-  .stars {
-    font-size: 13px;
-  }
-
-  .size-options {
-    gap: 7px;
-  }
-
-  .size-option {
-    min-height: 91px;
-    padding: 12px 4px 9px;
-  }
-
-  .size-name {
-    font-size: 12px;
-  }
-
-  .size-dimensions {
-    font-size: 10px;
-  }
-
-  .size-price {
-    margin-top: 3px;
-    font-size: clamp(13px, 3.6vw, 17px);
-  }
-
-  .popular-badge {
-    top: -9px;
-    padding: 4px 6px;
-    font-size: 8px;
-  }
-
-  .size-guide {
-    margin-top: 11px;
-    font-size: 11px;
-  }
-
-  .purchase {
-    margin-top: 15px;
-  }
-
-  .cart-button {
-    min-height: 54px;
-    gap: 10px;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-  }
-
-  .cart-button strong {
-    font-size: 13px;
-  }
-
-  .guarantee-row {
-    margin: 25px 0 30px;
-    padding: 0 5px;
-  }
-
-  .guarantee-row strong {
-    font-size: 10px;
-  }
-
-  .testimonial {
-    padding-top: 22px;
-  }
-
-  .testimonial-content p {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 360px) {
-  .product-info {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
-
-  .size-options {
-    gap: 5px;
-  }
-
-  .size-price {
-    font-size: 12px;
-  }
-
-  .popular-badge {
-    font-size: 7px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .size-option {
-    transition: none;
-  }
 }
 </style>
 
@@ -784,7 +250,7 @@ a {
   cursor: pointer;
 }
 
-/* GUARANTEE AND SIZE GUIDE MODALS */
+/* MODALS */
 
 .pp-modal-overlay {
   align-items: center;
@@ -881,8 +347,6 @@ a {
   margin-bottom: 0;
   font-size: 13px;
 }
-
-/* MOBILE MODALS */
 
 @media (max-width: 600px) {
   .pp-modal {

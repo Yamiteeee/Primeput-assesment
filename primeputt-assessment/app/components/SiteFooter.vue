@@ -34,7 +34,14 @@ function subscribe() {
       <!-- LOGO -->
       <div class="footer-brand">
         <a href="#product" class="footer-logo" aria-label="PrimePutt home">
-          <span class="logo-symbol">P</span>
+          <img
+            src="/images/primeputt-p-logo.svg"
+            alt=""
+            class="logo-symbol"
+            width="36"
+            height="41"
+          />
+
           <span class="logo-name">PrimePutt</span>
         </a>
       </div>
@@ -63,7 +70,7 @@ function subscribe() {
             <button type="submit" aria-label="Subscribe">→</button>
           </form>
 
-          <p v-if="subscribed" class="newsletter-success">
+          <p v-if="subscribed" class="newsletter-success" role="status">
             Thanks for your interest! This is a demo signup.
           </p>
         </div>
@@ -89,6 +96,7 @@ function subscribe() {
         <p>© 2026, PrimePutt Powered by Shopify</p>
 
         <div class="footer-socials">
+          <!-- FACEBOOK -->
           <a
             href="https://www.facebook.com/"
             target="_blank"
@@ -102,6 +110,7 @@ function subscribe() {
             </svg>
           </a>
 
+          <!-- INSTAGRAM -->
           <a
             href="https://www.instagram.com/"
             target="_blank"
@@ -118,7 +127,9 @@ function subscribe() {
               aria-hidden="true"
             >
               <rect x="3" y="3" width="18" height="18" rx="5" />
+
               <circle cx="12" cy="12" r="4" />
+
               <circle
                 cx="17.5"
                 cy="6.5"
@@ -129,6 +140,7 @@ function subscribe() {
             </svg>
           </a>
 
+          <!-- TIKTOK -->
           <a
             href="https://www.tiktok.com/"
             target="_blank"
@@ -148,6 +160,8 @@ function subscribe() {
 </template>
 
 <style scoped>
+/* FOOTER */
+
 .site-footer {
   width: 100%;
   padding: 26px 24px 28px;
@@ -171,25 +185,28 @@ function subscribe() {
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
   color: #eee;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .logo-symbol {
-  font-family: Georgia, serif;
-  font-size: 35px;
-  font-weight: 900;
-  line-height: 1;
+  display: block;
+  width: 36px;
+  height: 41px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .logo-name {
-  font-family: Georgia, serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 16px;
   font-weight: 700;
+  line-height: 1.2;
 }
 
-/* MAIN */
+/* MAIN FOOTER */
 
 .footer-main {
   display: grid;
@@ -198,6 +215,8 @@ function subscribe() {
   padding: 28px 0 24px;
   border-top: 1px solid #444;
 }
+
+/* NEWSLETTER */
 
 .footer-newsletter h2 {
   margin: 0 0 20px;
@@ -263,7 +282,7 @@ function subscribe() {
   font-size: 12px;
 }
 
-/* LINKS */
+/* FOOTER LINKS */
 
 .footer-navigation {
   display: grid;
@@ -290,7 +309,7 @@ function subscribe() {
   color: #ffc568;
 }
 
-/* BOTTOM */
+/* BOTTOM FOOTER */
 
 .footer-bottom {
   display: flex;
@@ -306,6 +325,8 @@ function subscribe() {
   color: #777;
   font-size: 10px;
 }
+
+/* SOCIAL ICONS */
 
 .footer-socials {
   display: flex;
@@ -336,6 +357,8 @@ function subscribe() {
   width: 15px;
   height: 15px;
 }
+
+/* ACCESSIBILITY */
 
 .sr-only {
   position: absolute;
@@ -370,6 +393,15 @@ function subscribe() {
 
   .footer-brand {
     padding-bottom: 25px;
+  }
+
+  .logo-symbol {
+    width: 30px;
+    height: 34px;
+  }
+
+  .logo-name {
+    font-size: 15px;
   }
 
   .footer-main {
@@ -419,6 +451,15 @@ function subscribe() {
     padding-right: 15px;
   }
 
+  .logo-symbol {
+    width: 26px;
+    height: 30px;
+  }
+
+  .logo-name {
+    font-size: 13px;
+  }
+
   .footer-newsletter h2 {
     font-size: 22px;
   }
@@ -429,6 +470,17 @@ function subscribe() {
 
   .footer-link-column a {
     font-size: 12px;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-form input,
+  .newsletter-form button,
+  .footer-link-column a,
+  .footer-socials a {
+    transition: none;
   }
 }
 </style>

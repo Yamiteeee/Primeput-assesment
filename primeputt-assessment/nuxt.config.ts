@@ -15,13 +15,18 @@ export default defineNuxtConfig({
           content:
             "PrimePutt premium putting mats. Bring the green home with realistic putting surfaces designed for true roll and everyday practice.",
         },
+        {
+          name: "theme-color",
+          content: "#080808",
+        },
       ],
 
       link: [
         {
           rel: "icon",
-          type: "image/png",
-          href: "/favicon.svg",
+          type: "image/svg+xml",
+          sizes: "any",
+          href: "/favicon.svg?v=4",
         },
       ],
     },
