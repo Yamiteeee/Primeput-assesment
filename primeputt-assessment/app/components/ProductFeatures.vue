@@ -602,4 +602,124 @@ const stats = [
        if reduced-motion playback is required. */
   }
 }
+
+/* =========================================
+   TABLET FIX — 701px TO 1024px
+========================================= */
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .features-section {
+    padding-bottom: 45px;
+  }
+
+  .stats-bar {
+    margin-bottom: 45px;
+  }
+
+  /* Stack video above text */
+
+  .feature-row,
+  .feature-row.feature-reverse {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+  }
+
+  /* Video first */
+
+  .feature-media,
+  .feature-reverse .feature-media {
+    order: 1;
+    width: calc(100% - 48px);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    margin: 0 24px;
+    border-radius: 14px;
+  }
+
+  .feature-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Text underneath */
+
+  .feature-copy,
+  .feature-reverse .feature-copy {
+    order: 2;
+    width: 100%;
+    padding: 30px 32px 65px;
+    justify-content: flex-start;
+  }
+
+  .feature-copy-inner {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .feature-number {
+    font-size: 65px;
+    letter-spacing: -4px;
+  }
+
+  .feature-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .feature-copy h2 {
+    font-size: clamp(30px, 4.5vw, 42px);
+    letter-spacing: -1.5px;
+    line-height: 1.12;
+  }
+
+  .feature-copy p {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* Testimonials */
+
+  .feature-quote {
+    min-height: 220px;
+    padding: 50px 25px;
+  }
+
+  .feature-quote blockquote {
+    font-size: clamp(27px, 4vw, 38px);
+  }
+}
+
+/* =========================================
+   TABLET PORTRAIT — TIGHTER SPACING
+========================================= */
+
+@media (min-width: 701px) and (max-width: 820px) {
+  .feature-media,
+  .feature-reverse .feature-media {
+    width: calc(100% - 36px);
+    margin: 0 18px;
+    aspect-ratio: 16 / 11;
+  }
+
+  .feature-copy,
+  .feature-reverse .feature-copy {
+    padding: 25px 24px 55px;
+  }
+
+  .feature-number {
+    font-size: 58px;
+  }
+
+  .feature-copy h2 {
+    font-size: 32px;
+  }
+
+  .feature-copy p {
+    font-size: 14px;
+  }
+}
 </style>
