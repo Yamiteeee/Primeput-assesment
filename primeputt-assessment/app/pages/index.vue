@@ -185,6 +185,10 @@ onUnmounted(() => {
       </section>
     </main>
 
+    <!-- PRODUCT FEATURES SECTION -->
+    <ProductFeatures />
+    <!-- PRODUCT SIZE COMPARISON -->
+    <ProductSizeSection />
     <!-- FOOTER -->
     <footer class="assessment-note">
       Unofficial frontend assessment replica. Not affiliated with PrimePutt.
