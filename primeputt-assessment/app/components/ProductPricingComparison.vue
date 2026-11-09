@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const comparisons = [
   {
-    price: "₱36,700–₱44,000",
+    price: "$499–$599",
     description:
       "PrimePutt: dense course-speed turf, durable outdoors, made to look great inside. Cups that perform like a real hole. Solid walnut backstop.",
     featured: true,
