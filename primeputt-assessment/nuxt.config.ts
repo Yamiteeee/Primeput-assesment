@@ -7,12 +7,21 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "PrimePutt | Product Page Replica",
+      title: "PrimePutt | Rated Best Indoor/Outdoor Putting Mat",
+
       meta: [
         {
           name: "description",
           content:
-            "Unofficial PrimePutt product page design replica for a frontend assessment.",
+            "PrimePutt premium putting mats. Bring the green home with realistic putting surfaces designed for true roll and everyday practice.",
+        },
+      ],
+
+      link: [
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.svg",
         },
       ],
     },

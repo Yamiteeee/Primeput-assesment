@@ -197,6 +197,15 @@ onUnmounted(() => {
     <ProductPricingComparison />
     <!-- PRODUCT GUARANTEE -->
     <ProductGuarantee @open-guarantee="guaranteeOpen = true" />
+    <!-- PRODUCT PRESS REVIEWS -->
+    <ProductPressReviews />
+
+    <!-- PRODUCT FAQ -->
+    <ProductFAQ />
+    <!-- PRODUCT CUSTOMER REVIEWS -->
+    <ProductCustomerReviews />
+    <!-- PRODUCT FOOTER -->
+    <SiteFooter />
 
     <!-- FOOTER -->
     <footer class="assessment-note">
